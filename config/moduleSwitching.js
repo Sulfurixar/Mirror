@@ -182,6 +182,3 @@ function readFileToMemory(path) {
     });
     return buffer;
 }
-
-moduleSwitching("compliments", 1);
-moduleSwitching("calendar",0);
