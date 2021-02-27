@@ -1,5 +1,7 @@
 const { isNull } = require('lodash');
 
+/*This function takes in a module name as a string and an integer that determines
+whether the module is to be removed or added to the config.js file*/
 function moduleSwitching(moduleName, truthValue) {
 
     if (truthValue != 1 && truthValue != 0) {
@@ -22,7 +24,7 @@ function moduleSwitching(moduleName, truthValue) {
     configBuffer = readFileToMemory('config.js');
     for (let i = 0; i < configBuffer.length; i++) {
 
-        //Scan .config file for the requested module
+        //Scan config.js file for the requested module
         if (getIndicesOf("module:", configBuffer[i]).length != 0 &&
             getIndicesOf(moduleName, configBuffer[i], caseSensitive = 1).length != 0) {
             isModuleThere = 1;
@@ -58,10 +60,10 @@ function moduleSwitching(moduleName, truthValue) {
 
     j = 0; bracketCounter = 0; i = 0;
     
-    //Add text to .config file
+    //Add text to config.js file
     if (truthValue == 1) {
         try {
-            //If the module is already in the .config file and you try to add it
+            //If the module is already in the config.js file and you try to add it
             if (isModuleThere == 1) {
                 return console.log("The module \"" + moduleName + "\" is already in the config.");
             }
@@ -99,7 +101,7 @@ function moduleSwitching(moduleName, truthValue) {
                 }
             }
 
-            //Copy the relevant block of text to the .config file
+            //Copy the relevant block of text to the config.js file
             for (let i = 0; i <= extractingStop - extractingStart; i++) {
                 extractedBlock[i] = moduleDefaultsbuffer[extractingStart + i];
             }
@@ -116,7 +118,7 @@ function moduleSwitching(moduleName, truthValue) {
         }
     }
 
-    //Remove text from .config file
+    //Remove text from config.js file
     else if (truthValue == 0) {
         try {
             if (isModuleThere == 0) {
