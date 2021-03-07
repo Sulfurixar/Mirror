@@ -20,7 +20,7 @@ do
         echo "Files have the same content"
     else
         echo "Files have NOT the same content"
-        HASH2=HASH1
+        HASH1=`md5sum config.js | cut -f1 -d ' '`
         pkill electron
         npm run start &
     fi
