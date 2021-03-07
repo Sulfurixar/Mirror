@@ -1,7 +1,7 @@
 const { isNull } = require('lodash');
 
 /*This function takes in a module name as a string and an integer that determines
-whether the module is to be removed or added to the config.js file*/
+* whether the module is to be removed or added to the config.js file*/
 function moduleSwitching(moduleName, truthValue) {
 
     if (truthValue !== 1 && truthValue !== 0) {
@@ -21,7 +21,7 @@ function moduleSwitching(moduleName, truthValue) {
 
     let isModuleThere = 0;
 
-    configBuffer = readFileToMemory('config.js');
+    configBuffer = readFileToMemory('./config.js');
     for (let i = 0; i < configBuffer.length; i++) {
 
         //Scan config.js file for the requested module
@@ -68,7 +68,7 @@ function moduleSwitching(moduleName, truthValue) {
                 return console.log("The module \"" + moduleName + "\" is already in the config.");
             }
 
-            moduleDefaultsbuffer = readFileToMemory('moduledefaults.txt');
+            moduleDefaultsbuffer = readFileToMemory('./moduledefaults.txt');
             //Cycle through the default module file to find the required block of text
             for (let i = 0; i < moduleDefaultsbuffer.length; i++) {
                 moduleNameSearch[0] = moduleDefaultsbuffer[i].search("module:");
@@ -128,7 +128,7 @@ function moduleSwitching(moduleName, truthValue) {
             for (let i = 0; i < moduleLocationInConfig[1]-moduleLocationInConfig[0]+1; i++) {
                 configBuffer.splice(moduleLocationInConfig[0], 1);
             }
-            writeToFile(configBuffer, "config.js");
+            writeToFile(configBuffer, "./config.js");
         // eslint-disable-next-line no-empty
         } catch (error) {
 
@@ -183,4 +183,4 @@ function readFileToMemory(path) {
     });
     return buffer;
 }
-moduleSwitching("compliments", 0);
+moduleSwitching("compliments", 1);
