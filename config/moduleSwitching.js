@@ -183,3 +183,4 @@ function readFileToMemory(path) {
     });
     return buffer;
 }
+moduleSwitching("compliments", 0);
