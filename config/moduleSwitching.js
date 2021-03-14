@@ -1,4 +1,5 @@
 const { isNull } = require('lodash');
+const config = require('./config');
 
 /*This function takes in a module name as a string and an integer that determines
 * whether the module is to be removed or added to the config.js file*/
@@ -21,7 +22,7 @@ function moduleSwitching(moduleName, truthValue) {
 
     let isModuleThere = 0;
 
-    configBuffer = readFileToMemory('./config.js');
+    configBuffer = readFileToMemory('config/config.js');
     for (let i = 0; i < configBuffer.length; i++) {
 
         //Scan config.js file for the requested module
@@ -68,7 +69,7 @@ function moduleSwitching(moduleName, truthValue) {
                 return console.log("The module \"" + moduleName + "\" is already in the config.");
             }
 
-            moduleDefaultsbuffer = readFileToMemory('./moduledefaults.txt');
+            moduleDefaultsbuffer = readFileToMemory('config/moduledefaults.txt');
             //Cycle through the default module file to find the required block of text
             for (let i = 0; i < moduleDefaultsbuffer.length; i++) {
                 moduleNameSearch[0] = moduleDefaultsbuffer[i].search("module:");
@@ -85,7 +86,7 @@ function moduleSwitching(moduleName, truthValue) {
                 //Find the start and end for the block that is to be copied
                 if (Extracting === 1) {
                     while (getIndicesOf("{", moduleDefaultsbuffer[i - j]).length === 0 &&
-                        isNull(extractingStart) === 1) {
+                        isNull(extractingStart) == 1) {
                         j++;
                     }
                     if (isNull(extractingStart)) {
@@ -100,6 +101,8 @@ function moduleSwitching(moduleName, truthValue) {
                     }
                 }
             }
+            console.log(moduleDefaultsbuffer[extractingStart]);
+            console.log(moduleDefaultsbuffer[extractingStop]);
 
             //Copy the relevant block of text to the config.js file
             for (let i = 0; i <= extractingStop - extractingStart; i++) {
@@ -110,7 +113,7 @@ function moduleSwitching(moduleName, truthValue) {
                 configBuffer.splice(sBCstop + i, 0, extractedBlock[i]);
             }
 
-            writeToFile(configBuffer, "config.js");
+            writeToFile(configBuffer, "config/config.js");
 
         }
         catch (err) {
@@ -128,7 +131,7 @@ function moduleSwitching(moduleName, truthValue) {
             for (let i = 0; i < moduleLocationInConfig[1]-moduleLocationInConfig[0]+1; i++) {
                 configBuffer.splice(moduleLocationInConfig[0], 1);
             }
-            writeToFile(configBuffer, "./config.js");
+            writeToFile(configBuffer, "config/config.js");
         // eslint-disable-next-line no-empty
         } catch (error) {
 
@@ -183,4 +186,5 @@ function readFileToMemory(path) {
     });
     return buffer;
 }
+
 moduleSwitching("compliments", 1);
