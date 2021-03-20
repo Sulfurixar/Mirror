@@ -85,7 +85,7 @@ var config = {
 			}
 		},
 		{
-			module: "compliments",
+			module: "errnews",
 			position: "lower_third"
 		},
 	]

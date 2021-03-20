@@ -4,7 +4,7 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
-Module.register("compliments", {
+Module.register("errnews", {
 	// Module config defaults.
 	defaults: {
 		compliments: {
@@ -15,7 +15,6 @@ Module.register("compliments", {
 			"....-01-01": ["Happy new year!"]
 		},
 		updateInterval: 30000,
-		remoteFile: null,
 		fadeSpeed: 4000,
 		morningStartTime: 3,
 		morningEndTime: 12,
@@ -40,12 +39,6 @@ Module.register("compliments", {
 		this.lastComplimentIndex = -1;
 
 		var self = this;
-		if (this.config.remoteFile !== null) {
-			this.complimentFile(function (response) {
-				self.config.compliments = JSON.parse(response);
-				self.updateDom();
-			});
-		}
 
 		// Schedule update timer.
 		setInterval(function () {
@@ -113,24 +106,8 @@ Module.register("compliments", {
 				compliments.push.apply(compliments, this.config.compliments[entry]);
 			}
 		}
-		return compliments;
-	},
 
-	/* complimentFile(callback)
-	 * Retrieve a file from the local filesystem
-	 */
-	complimentFile: function (callback) {
-		var xobj = new XMLHttpRequest(),
-			isRemote = this.config.remoteFile.indexOf("http://") === 0 || this.config.remoteFile.indexOf("https://") === 0,
-			path = isRemote ? this.config.remoteFile : this.file(this.config.remoteFile);
-		xobj.overrideMimeType("application/json");
-		xobj.open("GET", path, true);
-		xobj.onreadystatechange = function () {
-			if (xobj.readyState === 4 && xobj.status === 200) {
-				callback(xobj.responseText);
-			}
-		};
-		xobj.send(null);
+		return compliments;
 	},
 
 	/* complimentArray()
@@ -159,7 +136,7 @@ Module.register("compliments", {
 	// Override dom generator.
 	getDom: function () {
 		var wrapper = document.createElement("div");
-		wrapper.className = this.config.classes ? this.config.classes : "thin xlarge bright pre-line";
+		wrapper.className = this.config.classes ? this.config.classes : "bold large bright pre-line";
 		// get the compliment text
 		var complimentText = this.randomCompliment();
 		// split it into parts on newline text

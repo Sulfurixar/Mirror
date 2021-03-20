@@ -9,7 +9,6 @@ if [ $counter != 1 ]
 then
     DISPLAY=:0 & npm start &
     counter=1
-    echo $counter
 fi
 
 cd config/
@@ -19,7 +18,7 @@ do
     if [ "$HASH1" = "$HASH2" ]; then
         echo "Files have the same content"
     else
-        echo "Files have NOT the same content"
+        echo "Files DO NOT have the same content"
         HASH1=`md5sum config.js | cut -f1 -d ' '`
         pkill electron
         npm run start &
