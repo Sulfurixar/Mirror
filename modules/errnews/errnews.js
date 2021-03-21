@@ -29,22 +29,15 @@ Module.register("errnews", {
 	getDom: function () {
 		var wrapper = document.createElement("div");
 		if (this.dataFile) {
-			wrapper.innerHTML =
-				this.dataFile[(this.newscounter * 5) % (Math.round(this.dataFile.length / 5) * 5)] +
-				"<BR>" +
-				this.dataFile[(this.newscounter * 5 + 2) % (Math.round(this.dataFile.length / 5) * 5)] +
-				"<BR>" +
-				"Newscount:" +
-				this.newscounter +
-				"<BR>" +
-				"Newscount*5:" +
-				this.newscounter * 5 +
-				"<BR>" +
-				"dataFile.length:" +
-				this.dataFile.length +
-				"<BR>" +
-				"tehe:" +
-				((this.newscounter * 5) % (Math.round(this.dataFile.length / 5) * 5));
+			const title = document.createElement("div");
+			title.className = "newsfeed-title bright medium-large light";
+			title.innerHTML = this.dataFile[(this.newscounter * 5) % (Math.round(this.dataFile.length / 5) * 5)];
+			wrapper.appendChild(title);
+
+			const description = document.createElement("div");
+			description.className = "newsfeed-desc medium light";
+			description.innerHTML = this.dataFile[(this.newscounter * 5 + 2) % (Math.round(this.dataFile.length / 5) * 5)];
+			wrapper.appendChild(description);
 		} else {
 			wrapper.innerHTML = "No data";
 		}
