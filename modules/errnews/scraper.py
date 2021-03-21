@@ -43,10 +43,18 @@ for h2 in soup.find_all('h2', class_='news-article'):
 #write all articles to file
 f = open(newsDataPath, 'w', encoding='utf8')
 print(datetime.datetime.utcnow().isoformat())
+massiiviPikkus = len(links)
+
 for i in range(len(links)):
+    #filtering
     if (datetime.datetime.utcnow() - dates[i]).total_seconds() > removingTime:
-        continue # skips writing and therefore does not write old news
-    print((datetime.datetime.utcnow() - dates[i]).total_seconds())
+        continue # skips writing
+    if ("menu.err.ee" in links[i]):
+        continue
+    if (summaries[i] == ""):
+        continue
+    
+    #print((datetime.datetime.utcnow() - dates[i]).total_seconds())
     f.write(headlines[i] + "\n")
     f.write(links[i] + "\n")
     f.write(summaries[i] + "\n")

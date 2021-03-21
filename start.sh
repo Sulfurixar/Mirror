@@ -15,15 +15,10 @@ cd config/
 while :;
 do
     HASH2=`md5sum config.js | cut -f1 -d ' '`
-    if [ "$HASH1" = "$HASH2" ]; then
-        echo "Files have the same content"
-    else
-        echo "Files DO NOT have the same content"
+    if [ "$HASH1" != "$HASH2" ]; then
         HASH1=`md5sum config.js | cut -f1 -d ' '`
         pkill electron
         npm run start &
     fi
     sleep 10s
-    echo $HASH1
-    echo $HASH2
 done

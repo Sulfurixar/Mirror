@@ -69,24 +69,9 @@ var config = {
 			}
 		},
 		{
-			module: "newsfeed",
-			position: "bottom_bar",
-			config: {
-				feeds: [
-					{
-						title: "New York Times",
-						url: "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
-					}
-				],
-				showSourceTitle: true,
-				showPublishDate: true,
-				broadcastNewsFeeds: true,
-				broadcastNewsUpdates: true
-			}
-		},
-		{
 			module: "errnews",
-			position: "lower_third"
+			position: "bottom_bar",
+			config: {}
 		},
 	]
 };
