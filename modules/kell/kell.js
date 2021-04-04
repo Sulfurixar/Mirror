@@ -94,12 +94,13 @@ Module.register("kell", {
 
 		var dateWrapper = document.createElement("div");
 		var timeWrapper = document.createElement("div");
-		var secondsWrapper = document.createElement("sup");
+		var secondsWrapper = document.createElement("sup"); //SUPerscript
 		// Style Wrappers
 		dateWrapper.className = "date normal medium";
 		timeWrapper.className = "time bright large light";
 		secondsWrapper.className = "dimmed";
 
+		// Create HTML
 		dateWrapper.innerHTML = day + ", " + String(date) + ". " + month + " " + String(year);
 		wrapper.appendChild(dateWrapper);
 
