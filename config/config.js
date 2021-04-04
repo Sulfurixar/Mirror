@@ -46,10 +46,6 @@ var config = {
 			position: "top_bar"
 		},
 		{
-			module: "clock",
-			position: "top_left"
-		},
-		{
 			module: "currentweather",
 			position: "top_right",
 			config: {
@@ -71,6 +67,11 @@ var config = {
 		{
 			module: "errnews",
 			position: "bottom_bar",
+			config: {}
+		},
+		{
+			module: "kell",
+			position: "top_left",
 			config: {}
 		},
 	]

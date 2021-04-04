@@ -60,3 +60,13 @@
 				broadcastNewsUpdates: true
 			}
 		},
+		{
+			module: "errnews",
+			position: "bottom_bar",
+			config: {}
+		},
+		{
+			module: "kell",
+			position: "top_left",
+			config: {}
+		},
