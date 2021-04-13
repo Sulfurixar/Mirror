@@ -68,3 +68,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+### Actual Readme And Development
+
+Toggle Switch code https://www.sitepoint.com/react-toggle-switch-reusable-component/
+
+Authentication
+https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
+https://auth0.com/blog/complete-guide-to-react-user-authentication/
+https://betterprogramming.pub/building-basic-react-authentication-e20a574d5e71
+https://developer.okta.com/blog/2019/03/06/simple-user-authentication-in-react
+
+Requires MongoDB to be set up on your machine.
