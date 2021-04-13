@@ -81,4 +81,5 @@ https://auth0.com/blog/complete-guide-to-react-user-authentication/
 https://betterprogramming.pub/building-basic-react-authentication-e20a574d5e71
 https://developer.okta.com/blog/2019/03/06/simple-user-authentication-in-react
 
-Requires MongoDB to be set up on your machine.
+NB!!! Requires MongoDB to be set up on your machine.
+default login details are admin:admin

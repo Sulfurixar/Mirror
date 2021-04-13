@@ -1,11 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import ClockSwitch from "../ClockSwitch/ClockSwitch.js"
 
 export default function Dashboard() {
     return (
         <div>
             <h2>Dashboard</h2>
-            <Link to='/preferences'>Preferences</Link>
+            <ClockSwitch />
         </div>
     )
 }

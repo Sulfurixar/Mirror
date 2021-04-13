@@ -17,8 +17,8 @@ const Authroute = ({component: Component, token, loggedIn, setLoggedIn, ...rest}
         <Route 
             {...rest}
             render={props=>
-                (!token || token === '' || (loggedIn && loggedIn.res === 0)) ? 
-                (<Redirect to='/login'/>) : ( <Component {...props} /> )
+                (loggedIn && loggedIn.res === 1) ? 
+                ( <Component {...props} /> ) : (<Redirect to='/login'/>)
             }
         />
     );
