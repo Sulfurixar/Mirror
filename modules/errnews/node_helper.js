@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const NodeHelper = require("node_helper");
 const fs = require("fs");
 const { spawn } = require("child_process");
