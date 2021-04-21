@@ -104,7 +104,7 @@ Module.register("kell", {
 		dateWrapper.innerHTML = day + ", " + String(date) + ". " + month + " " + String(year);
 		wrapper.appendChild(dateWrapper);
 
-		timeWrapper.innerHTML = hours + ":" + minutes;
+		timeWrapper.innerHTML = ("0" + String(hours)).slice(-2) + ":" + ("0" + String(minutes)).slice(-2);
 
 		secondsWrapper.innerHTML = ("0" + String(seconds)).slice(-2); //keep last 2 digits
 		timeWrapper.appendChild(secondsWrapper);

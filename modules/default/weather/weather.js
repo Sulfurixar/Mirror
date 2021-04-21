@@ -41,11 +41,11 @@ Module.register("weather", {
 		fadePoint: 0.25, // Start on 1/4th of the list.
 		initialLoadDelay: 0, // 0 seconds delay
 		retryDelay: 2500,
-		apiKey: "",
+		apiKey: "6fc6f56a7a15cad59361e16716cbc607",
 		apiSecret: "",
 		apiVersion: "2.5",
 		apiBase: "https://api.openweathermap.org/data/", // TODO: this should not be part of the weather.js file, but should be contained in the openweatherprovider
-		weatherEndpoint: "/weather",
+		weatherEndpoint: "/forecast",
 		appendLocationNameToHeader: true,
 		calendarClass: "calendar",
 		tableClass: "small",
