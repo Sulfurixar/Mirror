@@ -46,25 +46,6 @@ var config = {
 			position: "top_bar"
 		},
 		{
-			module: "currentweather",
-			position: "top_right",
-			config: {
-				location: "Tallinn",
-				locationID: "", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
-				appid: "6fc6f56a7a15cad59361e16716cbc607",
-			}
-		},
-		{
-			module: "weatherforecast",
-			position: "top_right",
-			header: "Weather Forecast",
-			config: {
-				location: "Tallinn",
-				locationID: "588409", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
-				appid: "6fc6f56a7a15cad59361e16716cbc607"
-			}
-		},
-		{
 			module: "errnews",
 			position: "bottom_bar",
 			config: {}
@@ -74,11 +55,18 @@ var config = {
 			position: "top_left",
 			config: {}
 		},
+		{
+			module: "yrnoweather",
+			position: "top_right",
+			config: {}
+		},
 	]
 };
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
 if (typeof module !== "undefined") {module.exports = config;}
+
+
 
 
 

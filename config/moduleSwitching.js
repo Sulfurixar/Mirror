@@ -1,5 +1,5 @@
 const { isNull } = require('lodash');
-const config = require('./config');
+const fs = require('fs');
 
 /*This function takes in a module name as a string and an integer that determines
 * whether the module is to be removed or added to the config.js file*/
@@ -8,8 +8,6 @@ function moduleSwitching(moduleName, truthValue) {
     if (truthValue !== 1 && truthValue !== 0) {
         return console.log("The truth value has to be 0 or 1");
     }
-
-    const fs = require('fs');
 
     let moduleDefaultsbuffer = [], extractedBlock = [], configBuffer = [];
     let Extracting = 0, extractingStart = null, extractingStop = null;
@@ -22,7 +20,7 @@ function moduleSwitching(moduleName, truthValue) {
 
     let isModuleThere = 0;
 
-    configBuffer = readFileToMemory('config/config.js');
+    configBuffer = readFileToMemory(__dirname + '/config.js');
     for (let i = 0; i < configBuffer.length; i++) {
 
         //Scan config.js file for the requested module
@@ -69,7 +67,7 @@ function moduleSwitching(moduleName, truthValue) {
                 return console.log("The module \"" + moduleName + "\" is already in the config.");
             }
 
-            moduleDefaultsbuffer = readFileToMemory('config/moduledefaults.txt');
+            moduleDefaultsbuffer = readFileToMemory(__dirname + '/moduledefaults.txt');
             //Cycle through the default module file to find the required block of text
             for (let i = 0; i < moduleDefaultsbuffer.length; i++) {
                 moduleNameSearch[0] = moduleDefaultsbuffer[i].search("module:");
@@ -113,7 +111,7 @@ function moduleSwitching(moduleName, truthValue) {
                 configBuffer.splice(sBCstop + i, 0, extractedBlock[i]);
             }
 
-            writeToFile(configBuffer, "config/config.js");
+            writeToFile(configBuffer, __dirname + "/config.js");
 
         }
         catch (err) {
@@ -131,7 +129,7 @@ function moduleSwitching(moduleName, truthValue) {
             for (let i = 0; i < moduleLocationInConfig[1]-moduleLocationInConfig[0]+1; i++) {
                 configBuffer.splice(moduleLocationInConfig[0], 1);
             }
-            writeToFile(configBuffer, "config/config.js");
+            writeToFile(configBuffer, __dirname + "/config.js");
         // eslint-disable-next-line no-empty
         } catch (error) {
 
@@ -187,4 +185,4 @@ function readFileToMemory(path) {
     return buffer;
 }
 
-moduleSwitching("compliments", 1);
+moduleSwitching("currentweather", 0);

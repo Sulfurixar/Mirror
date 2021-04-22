@@ -1,6 +1,6 @@
 Module.register("errnews", {
 	defaults: {
-		updateInterval: 1 * 30 * 1000 //reads the file every 30 mins
+		updateInterval: 10 * 1000 * 60 //reads the file every 10 mins
 	},
 
 	start: function () {
@@ -8,9 +8,11 @@ Module.register("errnews", {
 		this.newscounter = 0;
 		let timer = setInterval(() => {
 			if (this.count % 600 == 0) {
+				//After how many seconds do we update news data
 				this.sendSocketNotification("START", this.config);
 			}
 			if (this.count % 20 == 0) {
+				//For how many seconds does the current selected news stay
 				this.updateDom();
 				this.newscounter++;
 			}
@@ -33,12 +35,12 @@ Module.register("errnews", {
 		if (this.dataFile) {
 			const title = document.createElement("div");
 			title.className = "newsfeed-title bright medium-large light";
-			title.innerHTML = this.dataFile[(this.randomArray[this.newscounter] * 5) % (Math.round(this.dataFile.length / 5) * 5)];
+			title.innerHTML = this.dataFile[((this.randomArray[this.newscounter % this.randomArray.length] * 5) % (Math.round(this.dataFile.length / 5) * 5)) % this.dataFile.length];
 			wrapper.appendChild(title);
 
 			const description = document.createElement("div");
 			description.className = "newsfeed-desc medium light";
-			description.innerHTML = this.dataFile[(this.randomArray[this.newscounter] * 5 + 2) % (Math.round(this.dataFile.length / 5) * 5)];
+			description.innerHTML = this.dataFile[((this.randomArray[this.newscounter % this.randomArray.length] * 5 + 2) % (Math.round(this.dataFile.length / 5) * 5)) % this.dataFile.length];
 			wrapper.appendChild(description);
 		} else {
 			wrapper.innerHTML = "No data";

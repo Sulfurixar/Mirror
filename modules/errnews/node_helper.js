@@ -13,7 +13,7 @@ module.exports = NodeHelper.create({
 
 	refreshAndReadData: function () {
 		//Run python script to refresh newsdata.txt
-		const childPython = spawn("python3", ["/home/eltrigs/Mirror/Mirror/modules/errnews/scraper.py"]);
+		const childPython = spawn("python3", [__dirname + "/scraper.py"]);
 		childPython.stdout.on("data", (data) => {
 			console.log(`stdout: ${data}`);
 		});
@@ -25,7 +25,7 @@ module.exports = NodeHelper.create({
 		});
 
 		//to read a file to do the following
-		fs.readFile("/home/eltrigs/Mirror/Mirror/modules/errnews/newsdata.txt", "utf8", (err, data) => {
+		fs.readFile(__dirname + "/newsdata.txt", "utf8", (err, data) => {
 			let full_output_data = null;
 
 			if (!err) {

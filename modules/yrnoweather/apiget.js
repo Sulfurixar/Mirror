@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 const fetch = require("node-fetch");
 const fs = require("fs");
-const { Agent } = require("http");
 
 function updateWeatherInfo() {
 	fetch("https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=58.4010&lon=24.4974")
@@ -16,8 +15,7 @@ function updateWeatherInfo() {
 		.then((res) => {
 			const dataString = JSON.stringify(res, null, 4);
 
-			//Change this line for Linux afterwards.
-			fs.writeFile(__dirname + "\\weatherdatatest.json", dataString, (err) => {
+			fs.writeFile(__dirname + "/weatherdata.json", dataString, (err) => {
 				if (err) {
 					throw err;
 				}
