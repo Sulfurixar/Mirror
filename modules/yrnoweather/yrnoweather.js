@@ -23,111 +23,123 @@ Module.register("yrnoweather", {
 		}
 	},
 
+	getStyles: function () {
+		return ["yrnoweather.css"];
+	},
+
 	getDom: function () {
 		var wrapper = document.createElement("table");
-		wrapper.style = "4 px solid white";
+		wrapper.className = "table";
 
 		if (this.weatherData) {
 			let row1 = document.createElement("tr");
 			let row2 = document.createElement("tr");
 			let row3 = document.createElement("tr");
+			let row4 = document.createElement("tr");
+			let row5 = document.createElement("tr");
+			let row6 = document.createElement("tr");
+			let row7 = document.createElement("tr");
+			let i = 0;
 
 			//Cloud image
 			let weatherImageCell = document.createElement("td");
-			weatherImageCell.setAttribute("rowspan", "2");
+			weatherImageCell.setAttribute("rowspan", "1");
+			weatherImageCell.setAttribute("colspan", "3");
+			weatherImageCell.className = "align-left weatherImage table";
 			let weatherImageIcon = document.createElement("img");
 			weatherImageIcon.setAttribute("height", String(15 * this.config.scale));
 			weatherImageIcon.setAttribute("width", String(15 * this.config.scale));
-			weatherImageIcon.src = "./modules/yrnoweather/images/c04n.gif";
+			weatherImageIcon.src = "./modules/yrnoweather/imagessvg/" + String(this.weatherData["shortIntervals"][i]["symbolCode"]["next1Hour"]) + ".svg";
 			weatherImageCell.appendChild(weatherImageIcon);
 
-			//Empty for now
-			let r1c2 = document.createElement("td");
-			r1c2.innerHTML = "";
+			let temperatureCell = document.createElement("td");
+			temperatureCell.className = "temperatureText align-right table";
+			temperatureCell.innerHTML = String(this.weatherData["shortIntervals"][i]["temperature"]["value"]) + " °C";
+			temperatureCell.setAttribute("rowspan", "1");
+			temperatureCell.setAttribute("colspan", "3");
 
-			//Empty for now
-			let r1c3 = document.createElement("td");
-			r1c3.innerHTML = "";
+			let relativeHumidityCell = document.createElement("td");
+			relativeHumidityCell.className = "small regular table";
+			relativeHumidityCell.innerHTML = "Suhteline õhuniiskus:";
+			relativeHumidityCell.setAttribute("colspan", "2");
 
-			//Empty for now
-			let r1c4 = document.createElement("td");
-			r1c4.innerHTML = "";
+			let relativeHumidityInfo = document.createElement("td");
+			relativeHumidityInfo.className = "small regular align-right table";
+			relativeHumidityInfo.innerHTML = this.weatherData["shortIntervals"][i]["humidity"]["value"] + "%";
 
-			//Day text
-			let r1c5 = document.createElement("td");
-			r1c5.innerHTML = "Today";
-			r1c5.className = "regular bright medium align-right";
+			let cloudFractionCell = document.createElement("td");
+			cloudFractionCell.className = "small regular table";
+			cloudFractionCell.innerHTML = "Pilvede osakaal:";
+			cloudFractionCell.setAttribute("colspan", "2");
 
-			//Temperature icon
-			let r2c2 = document.createElement("td");
-			let temperatureImageIcon = document.createElement("img");
-			temperatureImageIcon.setAttribute("height", String(5 * this.config.scale));
-			temperatureImageIcon.setAttribute("width", String(5 * this.config.scale));
-			temperatureImageIcon.src = "./modules/yrnoweather/images/high.png";
-			r2c2.appendChild(temperatureImageIcon);
+			let cloudFractionInfo = document.createElement("td");
+			cloudFractionInfo.className = "small regular align-right table";
+			cloudFractionInfo.innerHTML = this.weatherData["shortIntervals"][i]["cloudCover"]["value"] + "%";
 
-			//Temperature amount
-			let r2c3 = document.createElement("td");
-			r2c3.className = "small";
-			r2c3.innerHTML = "13 °C";
+			let windSpeedCell = document.createElement("td");
+			windSpeedCell.className = "small regular table";
+			windSpeedCell.innerHTML = "Tuule kiirus:";
+			windSpeedCell.setAttribute("colspan", "2");
 
-			//Precipitation icon
-			let r2c4 = document.createElement("td");
-			let precipipitationImageIcon = document.createElement("img");
-			precipipitationImageIcon.setAttribute("height", String(5 * this.config.scale));
-			precipipitationImageIcon.setAttribute("width", String(5 * this.config.scale));
-			precipipitationImageIcon.src = "./modules/yrnoweather/images/wet.png";
-			r2c4.appendChild(precipipitationImageIcon);
-			//Precipitation amount
-			let r2c5 = document.createElement("td");
-			r2c5.innerHTML = "40%";
+			let windSpeedInfo = document.createElement("td");
+			windSpeedInfo.className = "small regular align-right table";
+			windSpeedInfo.innerHTML = this.weatherData["shortIntervals"][i]["wind"]["speed"] + "(" + this.weatherData["shortIntervals"][i]["wind"]["gust"] + ")" + " m/s";
 
-			//Maybe put cloud area fraction?
-			let imageText = document.createElement("td");
-			imageText.innerHTML = this.weatherData["properties"]["timeseries"][0]["data"]["next_6_hours"]["summary"]["symbol_code"];
+			let windDirectionCell = document.createElement("td");
+			windDirectionCell.className = "small regular table";
+			windDirectionCell.innerHTML = "Tuule suund:";
+			windDirectionCell.setAttribute("colspan", "2");
 
-			//Relative humidity
-			let r3c2 = document.createElement("td");
-			let relhumImageIcon = document.createElement("img");
-			relhumImageIcon.setAttribute("height", String(5 * this.config.scale));
-			relhumImageIcon.setAttribute("width", String(5 * this.config.scale));
-			relhumImageIcon.src = "./modules/yrnoweather/images/humid.png";
-			r3c2.appendChild(relhumImageIcon);
-			//Relative humidity as %
-			let r3c3 = document.createElement("td");
-			r3c3.innerHTML = "60%";
-
-			//Wind direction image
-			let r3c4 = document.createElement("td");
 			let windDirectionIcon = document.createElement("img");
 			windDirectionIcon.setAttribute("height", String(5 * this.config.scale));
 			windDirectionIcon.setAttribute("width", String(5 * this.config.scale));
-			windDirectionIcon.src = "./modules/yrnoweather/images/" + this.deg2Cardinal(55.0) + ".png";
-			r3c4.appendChild(windDirectionIcon);
-			//Wind speed as m/s
-			let r3c5 = document.createElement("td");
-			r3c5.innerHTML = "10 m/s";
+			windDirectionIcon.src = "./modules/yrnoweather/images/" + this.deg2Cardinal(this.weatherData["shortIntervals"][i]["wind"]["direction"]) + ".png";
+			windDirectionIcon.className = "directionImage";
+
+			let windDirectionInfo = document.createElement("td");
+			windDirectionInfo.className = "small regular align-right table";
+			windDirectionInfo.innerHTML = this.deg2Cardinal(this.weatherData["shortIntervals"][i]["wind"]["direction"]);
+
+			let precipitationCell = document.createElement("td");
+			precipitationCell.className = "small regular table";
+			precipitationCell.innerHTML = "Sademete hulk (järgmised 6h):";
+			precipitationCell.setAttribute("colspan", "2");
+
+			let precipitationInfo = document.createElement("td");
+			precipitationInfo.className = "small regular align-right table";
+			precipitationInfo.innerHTML = this.weatherData["longIntervals"][i]["precipitation"]["value"] + " mm";
+
+			let emptyCell = document.createElement("td");
+			emptyCell.className = "temperatureText align-right table";
+			emptyCell.innerHTML = "";
 
 			row1.appendChild(weatherImageCell);
-			row1.appendChild(r1c2);
-			row1.appendChild(r1c3);
-			row1.appendChild(r1c4);
-			row1.appendChild(r1c5);
+			row1.appendChild(emptyCell);
+			row1.appendChild(temperatureCell);
 
-			row2.appendChild(r2c2);
-			row2.appendChild(r2c3);
-			row2.appendChild(r2c4);
-			row2.appendChild(r2c5);
+			row3.appendChild(precipitationCell);
+			row3.appendChild(precipitationInfo);
 
-			row3.appendChild(imageText);
-			row3.appendChild(r3c2);
-			row3.appendChild(r3c3);
-			row3.appendChild(r3c4);
-			row3.appendChild(r3c5);
+			row4.appendChild(relativeHumidityCell);
+			row4.appendChild(relativeHumidityInfo);
+
+			row5.appendChild(cloudFractionCell);
+			row5.appendChild(cloudFractionInfo);
+
+			row6.appendChild(windSpeedCell);
+			row6.appendChild(windSpeedInfo);
+
+			row7.appendChild(windDirectionCell);
+			windDirectionInfo.appendChild(windDirectionIcon);
+			row7.appendChild(windDirectionInfo);
 
 			wrapper.appendChild(row1);
 			wrapper.appendChild(row2);
 			wrapper.appendChild(row3);
+			wrapper.appendChild(row4);
+			wrapper.appendChild(row5);
+			wrapper.appendChild(row6);
+			wrapper.appendChild(row7);
 		} else {
 			wrapper.innerHTML = "No data. Loading...";
 		}

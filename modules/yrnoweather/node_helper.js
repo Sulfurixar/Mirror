@@ -6,25 +6,30 @@ module.exports = NodeHelper.create({
 	socketNotificationReceived: function (notification, payload) {
 		if (notification === "WEATHERUPDATE") {
 			this.config = payload;
-			this.checkDataValidity("weatherdata.json");
+			this.tryToUpdateWeather();
 		}
 	},
 
 	updateWeatherInfo: function () {
-		fetch("https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=58.4010&lon=24.4974")
+		console.log("Fetching weather data...");
+		fetch("https://www.yr.no/api/v0/locations/id/2-589580/forecast")
 			.then((res) => {
-				console.log(res.ok);
-				console.log(res.status);
-				console.log(res.statusText);
-				console.log(res.headers.raw());
-				console.log(res.headers.get("content-type"));
-				return res.json();
+				console.log("New weather expiration date: " + res.headers.get("expires"));
+				let expireDate = res.headers.get("expires");
+				fs.writeFile(__dirname + "/weatherdataexpires.txt", expireDate, (err) => {
+					if (err) {
+						throw err;
+					}
+					console.log("JSON weather expiration date is saved.");
+				});
+				res = res.json();
+
+				return res;
 			})
 			.then((res) => {
 				const dataString = JSON.stringify(res, null, 4);
 
-				//Change this line for Linux afterwards.
-				fs.writeFile(__dirname + "\\weatherdatatest.json", dataString, (err) => {
+				fs.writeFile(__dirname + "/weatherdata.json", dataString, (err) => {
 					if (err) {
 						throw err;
 					}
@@ -33,10 +38,21 @@ module.exports = NodeHelper.create({
 			});
 	},
 
-	checkDataValidity: function (filename) {
-		let data = fs.readFileSync(__dirname + "/" + filename, "utf-8");
-		let weatherData = JSON.parse(data.toString());
-		this.sendSocketNotification("WEATHERDATA", weatherData);
+	tryToUpdateWeather: function () {
+		let expirefile = fs.readFileSync(__dirname + "/weatherdataexpires.txt", "utf-8");
+		let expireDate = new Date(expirefile);
+		let now = new Date();
+		if (expireDate < now) {
+			console.log("Updating weather data...");
+			this.updateWeatherInfo();
+		}
+		//k6ige huvitavam on see, kas updateWeatherInfo ja need järgmised read suudavad koostööd teha
+		//sest nad m6lemad loevad/kirjutavad sama faili asynkroonselt
+		fs.readFile(__dirname + "/weatherdata.json", (err, data) => {
+			if (err) throw err;
+			let weatherData = JSON.parse(data);
+			this.sendSocketNotification("WEATHERDATA", weatherData);
+		});
 	},
 
 	fillerfunction: function () {
