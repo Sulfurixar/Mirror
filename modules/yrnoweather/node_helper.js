@@ -11,16 +11,17 @@ module.exports = NodeHelper.create({
 	},
 
 	updateWeatherInfo: function () {
-		console.log("Fetching weather data...");
+		console.log("Fetching weather data from API...");
 		fetch("https://www.yr.no/api/v0/locations/id/2-589580/forecast")
 			.then((res) => {
+				console.log("Status:" + res.status);
 				console.log("New weather expiration date: " + res.headers.get("expires"));
 				let expireDate = res.headers.get("expires");
 				fs.writeFile(__dirname + "/weatherdataexpires.txt", expireDate, (err) => {
 					if (err) {
 						throw err;
 					}
-					console.log("JSON weather expiration date is saved.");
+					console.log("New weather expiration date has been saved.");
 				});
 				res = res.json();
 
@@ -33,7 +34,7 @@ module.exports = NodeHelper.create({
 					if (err) {
 						throw err;
 					}
-					console.log("JSON weatherdata is saved.");
+					console.log("JSON weatherdata has been saved.");
 				});
 			});
 	},

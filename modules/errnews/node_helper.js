@@ -15,13 +15,13 @@ module.exports = NodeHelper.create({
 		//Run python script to refresh newsdata.txt
 		const childPython = spawn("python3", [__dirname + "/scraper.py"]);
 		childPython.stdout.on("data", (data) => {
-			console.log(`stdout: ${data}`);
+			//console.log(`stdout: ${data}`);
 		});
 		childPython.stderr.on("data", (data) => {
 			console.error(`stderr: ${data}`);
 		});
 		childPython.on("close", (code) => {
-			console.log(`child process exited with code ${code}`);
+			//console.log(`child process exited with code ${code}`);
 		});
 
 		//to read a file to do the following

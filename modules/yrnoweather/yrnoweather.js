@@ -28,10 +28,15 @@ Module.register("yrnoweather", {
 	},
 
 	getDom: function () {
-		var wrapper = document.createElement("table");
+		var wrapper = document.createElement("div");
 		wrapper.className = "table";
+		let table1 = document.createElement("table");
+		table1.className = "table";
+		let table2 = document.createElement("table");
+		table2.className = "table";
 
 		if (this.weatherData) {
+			//For current weather. Cell = what it is, Info = number that was gotten from the API
 			let row1 = document.createElement("tr");
 			let row2 = document.createElement("tr");
 			let row3 = document.createElement("tr");
@@ -133,13 +138,57 @@ Module.register("yrnoweather", {
 			windDirectionInfo.appendChild(windDirectionIcon);
 			row7.appendChild(windDirectionInfo);
 
-			wrapper.appendChild(row1);
-			wrapper.appendChild(row2);
-			wrapper.appendChild(row3);
-			wrapper.appendChild(row4);
-			wrapper.appendChild(row5);
-			wrapper.appendChild(row6);
-			wrapper.appendChild(row7);
+			table1.appendChild(row1);
+			table1.appendChild(row2);
+			table1.appendChild(row3);
+			table1.appendChild(row4);
+			table1.appendChild(row5);
+			table1.appendChild(row6);
+			table1.appendChild(row7);
+
+			//for weather forecast
+			dayCellHeader = document.createElement("th");
+			dayCellHeader.innerHTML = "";
+
+			iconCellHeader = document.createElement("th");
+
+			iconCellHeader.innerHTML = "empty";
+
+			tempValueCellHeader = document.createElement("th");
+			tempValueCellHeader.innerHTML = "T";
+
+			for (let j = 0; j < 5; j++) {
+				let forecastRow = document.createElement("tr");
+				let dayCell = document.createElement("td");
+				dayCell.className = "small regular align-left table";
+				let day = new Date(this.weatherData["dayIntervals"][j + 1]["start"]);
+				let daynumber = parseInt(day.getDay());
+				dayCell.innerHTML = String(this.numToDay(daynumber));
+
+				let iconCell = document.createElement("td");
+				let iconCellImage = document.createElement("img");
+				iconCellImage.setAttribute("height", String(10 * this.config.scale));
+				iconCellImage.setAttribute("width", String(10 * this.config.scale));
+				iconCellImage.className = "weatherforecastImage";
+				iconCellImage.src = "./modules/yrnoweather/imagessvg/" + String(this.weatherData["dayIntervals"][j + 1]["twentyFourHourSymbol"]) + ".svg";
+				iconCell.appendChild(iconCellImage);
+
+				let forecastTempCell = document.createElement("td");
+				forecastTempCell.className = "small regular align-left table";
+				forecastTempCell.innerHTML = this.weatherData["dayIntervals"][j + 1]["temperature"]["value"] + " °C";
+
+				let forecastPrecipCell = document.createElement("td");
+				forecastPrecipCell.className = "small regular align-left table";
+				forecastPrecipCell.innerHTML = this.weatherData["dayIntervals"][j + 1]["precipitation"]["value"] + " mm";
+
+				forecastRow.appendChild(dayCell);
+				forecastRow.appendChild(iconCell);
+				forecastRow.appendChild(forecastTempCell);
+				forecastRow.appendChild(forecastPrecipCell);
+				table2.appendChild(forecastRow);
+			}
+			wrapper.appendChild(table1);
+			wrapper.appendChild(table2);
 		} else {
 			wrapper.innerHTML = "No data. Loading...";
 		}
@@ -179,6 +228,32 @@ Module.register("yrnoweather", {
 			return "NNW";
 		} else {
 			return "N";
+		}
+	},
+
+	numToDay: function (input) {
+		switch (input) {
+			case 0:
+				day = "Pühapäev";
+				return day;
+			case 1:
+				day = "Esmaspäev";
+				return day;
+			case 2:
+				day = "Teisipäev";
+				return day;
+			case 3:
+				day = "Kolmapäev";
+				return day;
+			case 4:
+				day = "Neljapäev";
+				return day;
+			case 5:
+				day = "Reede";
+				return day;
+			case 6:
+				day = "Laupäev";
+				return day;
 		}
 	}
 });
