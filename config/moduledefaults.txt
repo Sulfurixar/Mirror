@@ -70,3 +70,8 @@
 			position: "top_left",
 			config: {}
 		},
+		{
+			module: "yrnoweather",
+			position: "top_right",
+			config: {}
+		},
