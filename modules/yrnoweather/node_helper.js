@@ -12,9 +12,9 @@ module.exports = NodeHelper.create({
 
 	updateWeatherInfo: function () {
 		console.log("Fetching weather data from API...");
-		fetch("https://www.yr.no/api/v0/locations/id/2-589580/forecast")
+		fetch("https://www.yr.no/api/v0/locations/id/2-589580/forecast") //ID from yrno website
 			.then((res) => {
-				console.log("Status:" + res.status);
+				console.log("Status:" + res.status); //should be 200, if everything went well
 				console.log("New weather expiration date: " + res.headers.get("expires"));
 				let expireDate = res.headers.get("expires");
 				fs.writeFile(__dirname + "/weatherdataexpires.txt", expireDate, (err) => {
@@ -54,9 +54,5 @@ module.exports = NodeHelper.create({
 			let weatherData = JSON.parse(data);
 			this.sendSocketNotification("WEATHERDATA", weatherData);
 		});
-	},
-
-	fillerfunction: function () {
-		this.sendSocketNotification("WEATHERDATA", "Hello");
 	}
 });

@@ -146,17 +146,6 @@ Module.register("yrnoweather", {
 			table1.appendChild(row6);
 			table1.appendChild(row7);
 
-			//for weather forecast
-			dayCellHeader = document.createElement("th");
-			dayCellHeader.innerHTML = "";
-
-			iconCellHeader = document.createElement("th");
-
-			iconCellHeader.innerHTML = "empty";
-
-			tempValueCellHeader = document.createElement("th");
-			tempValueCellHeader.innerHTML = "T";
-
 			for (let j = 0; j < 5; j++) {
 				let forecastRow = document.createElement("tr");
 				let dayCell = document.createElement("td");
