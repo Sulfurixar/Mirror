@@ -76,8 +76,8 @@ app.use(express.urlencoded());
 
 app.use('/login', (req, res) => {
 
-    var username = req.body?.un;
-    var password = req.body?.pw;
+    var username = req.body.un;
+    var password = req.body.pw;
 
     if (typeof username === 'undefined' || typeof password === 'undefined') {
         res.send({
@@ -131,7 +131,7 @@ app.use('/login', (req, res) => {
 });
 
 app.use('/handle', (req, res) => {
-    var token = req.body?.token;
+    var token = req.body.token;
     if (!token) {
         res.send({"res": 0});
     } else {
