@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* Magic Mirror
  * Module: WeatherForecast
  *

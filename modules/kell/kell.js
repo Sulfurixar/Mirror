@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 Module.register("kell", {
 	defaults: {
 		updateInterval: 1 * 30 * 1000 //reads the file every 30 mins
