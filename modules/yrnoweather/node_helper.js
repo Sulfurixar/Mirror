@@ -12,6 +12,8 @@ module.exports = NodeHelper.create({
 
 	updateWeatherInfo: function () {
 		console.log("Fetching weather data from API...");
+
+		//Change the part after /id/ to your desired location
 		fetch("https://www.yr.no/api/v0/locations/id/2-589580/forecast") //ID from yrno website
 			.then((res) => {
 				console.log("Status:" + res.status); //should be 200, if everything went well
