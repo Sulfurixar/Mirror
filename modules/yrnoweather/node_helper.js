@@ -13,8 +13,8 @@ module.exports = NodeHelper.create({
 	updateWeatherInfo: function () {
 		console.log("Fetching weather data from API...");
 
-		//Change the part after /id/ to your desired location
-		fetch("https://www.yr.no/api/v0/locations/id/2-589580/forecast") //ID from yrno website
+		//Change the part after /id/ to your desired location 2-588409 for Tallinn
+		fetch("https://www.yr.no/api/v0/locations/id/2-588409/forecast") //ID from yrno website
 			.then((res) => {
 				console.log("Status:" + res.status); //should be 200, if everything went well
 				console.log("New weather expiration date: " + res.headers.get("expires"));
