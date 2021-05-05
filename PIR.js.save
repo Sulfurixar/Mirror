@@ -1,0 +1,28 @@
+var gpio = require('onoff').Gpio
+const { exec } = require("child_process")
+var PIR = new gpio(4, 'in')
+var c = 0;
+var last = 0
+while (1) {
+  if (c < 10000000)
+    c++
+  else {
+    let res = PIR.readSync()
+    console.log(res)
+    if (res !== last) {
+      console.log(c)
+      last = res
+      if (res) {
+        console.log("Turning on screen.")
+        exec("tvservice -p")
+//        exec("xset -display :0 dpms force on")
+      } else {
+        console.log("Turning off screen.")
+//        exec("xset -display :0 dpms force off")
+        exec("tvservice -o")
+      }
+    }
+    c = 0
+  }
+
+}

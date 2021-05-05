@@ -3,11 +3,11 @@ const fs = require('fs');
 
 /*This function takes in a module name as a string and an integer that determines
 * whether the module is to be removed or added to the config.js file*/
-function moduleSwitching(moduleName, truthValue) {
-
+function moduleSwitching(moduleName, truthValue, mode) {
+    if (!mode){
     if (truthValue !== 1 && truthValue !== 0) {
         return console.log("The truth value has to be 0 or 1");
-    }
+    }}
 
     let moduleDefaultsbuffer = [], extractedBlock = [], configBuffer = [];
     let Extracting = 0, extractingStart = null, extractingStop = null;
@@ -27,6 +27,9 @@ function moduleSwitching(moduleName, truthValue) {
         if (getIndicesOf("module:", configBuffer[i]).length !== 0 &&
             getIndicesOf(moduleName, configBuffer[i], 1).length !== 0) {
             isModuleThere = 1;
+            if (mode) {
+                return isModuleThere
+            }
             bracketCounter = 1
             //Mark the spot where the module starts, when it is found in the config file
             while (getIndicesOf("{", configBuffer[i - j]).length === 0) {
@@ -55,6 +58,11 @@ function moduleSwitching(moduleName, truthValue) {
             squareBracketCounter = 1;
             sBCstart = i;
         }
+    }
+
+	// if mode has been supplied, we're just checking for whether the module is applied at the moment - therefore no need to go further.
+    if (mode) {
+	return isModuleThere;
     }
 
     j = 0; bracketCounter = 0; i = 0;
@@ -185,4 +193,7 @@ function readFileToMemory(path) {
     return buffer;
 }
 
-moduleSwitching("currentweather", 0);
+// test case
+//moduleSwitching("currentweather", 0);
+
+module.exports = moduleSwitching;

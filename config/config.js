@@ -46,6 +46,11 @@ var config = {
 			position: "top_bar"
 		},
 		{
+			module: "yrnoweather",
+			position: "top_right",
+			config: {}
+		},
+		{
 			module: "errnews",
 			position: "bottom_bar",
 			config: {}
@@ -55,16 +60,67 @@ var config = {
 			position: "top_left",
 			config: {}
 		},
-		{
-			module: "yrnoweather",
-			position: "top_right",
-			config: {}
-		},
 	]
 };
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
 if (typeof module !== "undefined") {module.exports = config;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
